@@ -18,7 +18,12 @@ noteApp.get("/", function (req, res){
 
 //HTML Route for Note Page
 noteApp.get("/notes", function(req,res){
-    res.sendFile(path.join(__dirname, "/public/notes.hmtl")); 
+    res.sendFile(path.join(__dirname, "/public/notes.html")); 
 }); 
 
-//API Routes
+//API Get Function
+
+//Listen
+noteApp.listen(PORT, function () {
+    console.log("App listening on PORT: " + PORT);
+  });
