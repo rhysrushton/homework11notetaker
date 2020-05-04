@@ -21,7 +21,17 @@ noteApp.get("/notes", function(req,res){
     res.sendFile(path.join(__dirname, "/public/notes.html")); 
 }); 
 
-//API Get Function
+//API Get Function to DB JSON
+noteApp.get("/api/notes", function (req, res){
+    fs.readFile("./db/db.json", "utf8", function (error, data){
+        if (error){
+            return console.log(error);
+        }
+        return res.json(JSON.parse(data));
+    });
+}); 
+
+
 
 //Listen
 noteApp.listen(PORT, function () {
