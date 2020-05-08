@@ -46,8 +46,8 @@ noteApp.post("/api/notes", function(req,res){
         }
         newNotes.push(note);
         fs.writeFile("./db/db.json", JSON.stringify(newNotes), function (error){
-            if (err) {
-                throw (err)
+            if (error) {
+                throw (error)
             } res.json(note)
         })
     })
