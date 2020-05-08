@@ -65,6 +65,27 @@ noteApp.get("/api/notes", function(req, res){
 }); 
 
 
+//Delete Function 
+noteApp.delete("/api/notes/:id", function(req,res){
+    var id = parseInt(req.params.id);
+    fs.readFile("./db/db.json", "utf8", function(error, data){
+        if(error) {
+            return console.log(error); 
+        }
+        var allNotes = JSON.parse(data);
+        var noteSearch = allNotes.find((element) => element.id === id);
+        console.log(noteSearch);
+        allNotes.splice(allNotes.indexOf(noteSearch), 1);
+        fs.writeFile("./db/db.json", JSON.stringify(allNotes), function (error){
+            if(error){
+                return(error)
+            } res.json(allNotes)
+            console.log("done"); 
+        })
+    })
+  
+})
+
 
 //Listen
 noteApp.listen(PORT, function () {
