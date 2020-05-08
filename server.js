@@ -29,7 +29,30 @@ noteApp.get("/api/notes", function (req, res){
         }
         return res.json(JSON.parse(data));
     });
-}); 
+});
+
+//API Post 
+noteApp.post("/api/notes", function(req,res){
+    var note =req.body;
+    fs.readFile("./db/db.json", function (error,data){
+        if(error){
+            return console.log(error);
+        }
+        var newNotes = JSON.parse(data);
+        if(newNotes[newNotes.length - 1]){
+            note.id= newNotes[newNotes.length - 1].id+1;
+        } else{
+            note.id=1; 
+        }
+        newNotes.push(note);
+        fs.writeFile("./db/db.json", JSON.stringify(newNotes), function (error){
+            if (err) {
+                throw (err)
+            } res.json(note)
+        })
+    })
+    
+})
 
 
 
